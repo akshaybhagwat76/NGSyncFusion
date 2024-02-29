@@ -4,7 +4,9 @@
   id="pdfViewer" 
   #pdfviewer 
   (documentLoad)='loaded()' 
+  [enableFormFieldsValidation]=true
   [resourceUrl]='resource' 
+  (validateFormFields)='validateFormFields($event)'
   style="height:640px;display:block">
 </ejs-pdfviewer>
 <button class="btn btn-primary" (click)="loaded()">

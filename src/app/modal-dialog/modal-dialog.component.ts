@@ -19,7 +19,8 @@ import {
   PrintService, FormDesignerService, FormFieldsService,
   PdfViewerModule,
   PdfViewerComponent, TextFieldSettings, SignatureFieldSettings, InitialFieldSettings,
-  CheckBoxFieldSettings, RadioButtonFieldSettings
+  CheckBoxFieldSettings, RadioButtonFieldSettings,
+  ValidateFormFieldsArgs
 } from '@syncfusion/ej2-angular-pdfviewer';
 import { data, DataKeys } from "./fakedata";
 
@@ -49,35 +50,39 @@ export class ModalDialogComponent {
   public document: string = 'assets/jfs.pdf';
   public resource: string = "https://cdn.syncfusion.com/ej2/23.1.43/dist/ej2-pdfviewer-lib";
 
+  isAnyOneSelected: boolean = false;
   pdfData: any = {};
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
   ) {
 
   }
-
+   validateFormFields(e: ValidateFormFieldsArgs): void {
+    e.nonFillableFields;
+  }
   loaded() {
 
-    this.pdfviewerControl?.enableDownload;
+    
     this.pdfviewerControl?.enableAutoComplete;
+
     let allFields = this.pdfviewerControl?.retrieveFormFields()
     if (allFields) {
       allFields.forEach((field: any, i: number) => {
         if (field.name in data && this.pdfviewerControl) {
           const fieldName = field.name as keyof typeof data;
           const value = data[fieldName];
-          if (value !== undefined) {
+          console.log(value);
+          if (value !== undefined && value !== '') {
             this.pdfviewerControl.formDesignerModule.updateFormField(
               this.pdfviewerControl.formFieldCollections[i],
-              { value: value } as TextFieldSettings
+              { value: value, isReadOnly: true } as TextFieldSettings
             );
-          }
+          } 
         }
       })
-      this.pdfData =allFields;
-      console.log(this.pdfData)
+      this.pdfData = allFields;
     }
-    
+
   }
 
 
