@@ -1,0 +1,13 @@
+
+<mat-dialog-content class="fixed-modal">
+  <ejs-pdfviewer 
+  id="pdfViewer" 
+  #pdfviewer 
+  (documentLoad)='loaded()' 
+  [resourceUrl]='resource' 
+  style="height:640px;display:block">
+</ejs-pdfviewer>
+<button class="btn btn-primary" (click)="loaded()">
+  Save
+</button>
+</mat-dialog-content>
