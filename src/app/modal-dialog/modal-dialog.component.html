@@ -5,11 +5,12 @@
   #pdfviewer 
   (documentLoad)='loaded()' 
   [enableFormFieldsValidation]=true
+  [toolbarSettings]="toolbarSettings"
   [resourceUrl]='resource' 
-  (validateFormFields)='validateFormFields($event)'
+  
   style="height:640px;display:block">
 </ejs-pdfviewer>
-<button class="btn btn-primary" (click)="loaded()">
+<button class="btn btn-primary" (click)="saveFieldsAndLock()">
   Save
 </button>
 </mat-dialog-content>

@@ -49,38 +49,77 @@ export class ModalDialogComponent {
   public pdfviewerControl?: PdfViewerComponent;
   public document: string = 'assets/jfs.pdf';
   public resource: string = "https://cdn.syncfusion.com/ej2/23.1.43/dist/ej2-pdfviewer-lib";
+  
+  data = data;
 
   isAnyOneSelected: boolean = false;
   pdfData: any = {};
+  public toolbarSettings = { showTooltip: true, toolbarItems: ['PageNavigationTool', "OpenOption", "MagnificationTool", "PanTool", "SelectionTool", "SearchOption", "PrintOption", "UndoRedoTool", "AnnotationEditTool", "CommentTool"] };
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
   ) {
 
   }
-   validateFormFields(e: ValidateFormFieldsArgs): void {
-    e.nonFillableFields;
+  validateFormFields(): void {
+    let allFields = this.pdfviewerControl?.retrieveFormFields();
+    if(allFields){
+      allFields.forEach((field:any) => {
+        if(field.isRequired){
+          
+        }
+      })
+    }
+  }
+  saveFieldsAndLock() {
+    let allFields = this.pdfviewerControl?.retrieveFormFields();
+    if (allFields) {
+      allFields.forEach((field: any, i: number) => {
+
+        if (field.name && this.pdfviewerControl) {
+          const value = field.value;
+          const fieldName = field.name as keyof typeof this.data;
+          this.data[fieldName] = value;
+          if (value !== undefined && value !== '') {
+            this.pdfviewerControl.formDesignerModule.updateFormField(
+              this.pdfviewerControl.formFieldCollections[i],
+              { value: value, isReadOnly: true, isRequired: false } as TextFieldSettings
+            );
+          }
+        }
+        if (field.type === "Checkbox" && field.isChecked) {
+          this.isAnyOneSelected = true;
+        }
+      })
+    }
+    console.log(this.isAnyOneSelected)
   }
   loaded() {
 
-    
+
     this.pdfviewerControl?.enableAutoComplete;
 
     let allFields = this.pdfviewerControl?.retrieveFormFields()
     if (allFields) {
       allFields.forEach((field: any, i: number) => {
-        if (field.name in data && this.pdfviewerControl) {
-          const fieldName = field.name as keyof typeof data;
-          const value = data[fieldName];
-          console.log(value);
+        if (field.name in this.data && this.pdfviewerControl) {
+          const fieldName = field.name as keyof typeof this.data;
+          const value = this.data[fieldName];
+
           if (value !== undefined && value !== '') {
             this.pdfviewerControl.formDesignerModule.updateFormField(
               this.pdfviewerControl.formFieldCollections[i],
               { value: value, isReadOnly: true } as TextFieldSettings
             );
-          } 
+          } else {
+            this.pdfviewerControl.formDesignerModule.updateFormField(
+              this.pdfviewerControl.formFieldCollections[i],
+              { isRequired: true } as TextFieldSettings
+            );
+          }
         }
       })
       this.pdfData = allFields;
+      console.log(this.pdfData)
     }
 
   }
