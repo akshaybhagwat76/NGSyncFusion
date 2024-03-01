@@ -77,10 +77,12 @@ export class ModalDialogComponent implements OnInit {
             ((field.type === 'Textbox' || field.type === "Password") && field.value === "")) {
             alert("Please fill out details properly")
             this.isFormCorrect = false;
+            return;
           }
 
         }
       }
+      alert("Submitted")
     }
   }
 
@@ -97,6 +99,11 @@ export class ModalDialogComponent implements OnInit {
             this.pdfviewerControl.formDesignerModule.updateFormField(
               this.pdfviewerControl.formFieldCollections[i],
               { value: value, isReadOnly: true, isRequired: false } as TextFieldSettings
+            );
+          } else {
+            this.pdfviewerControl.formDesignerModule.updateFormField(
+              this.pdfviewerControl.formFieldCollections[i],
+              { isRequired: true } as TextFieldSettings
             );
           }
         }
@@ -122,7 +129,7 @@ export class ModalDialogComponent implements OnInit {
         }
       });
       this.pdfData = allFields;
-      console.log(this.pdfData);
+      this.saveFieldsAndLock()
     }
   }
 
