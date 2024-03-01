@@ -65,7 +65,9 @@ export class ModalDialogComponent implements OnInit {
 
   }
   isFormCorrect: boolean = false;
-
+  reset(){
+    this.pdfviewerControl?.resetFormFields()
+  }
   validateFormFields(): void {
     this.saveFieldsAndLock()
     const allFields = this.pdfviewerControl?.retrieveFormFields();
