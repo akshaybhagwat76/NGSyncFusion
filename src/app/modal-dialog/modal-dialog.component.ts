@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   MatDialogTitle,
   MatDialogContent,
@@ -22,7 +22,11 @@ import {
   CheckBoxFieldSettings, RadioButtonFieldSettings,
   ValidateFormFieldsArgs
 } from '@syncfusion/ej2-angular-pdfviewer';
-import { data, DataKeys } from "./fakedata";
+import { data } from "./fakedata";
+
+export type DataKeys = {
+  [Key in keyof typeof data]: string;
+}
 
 @Component({
   selector: 'app-modal-dialog',
@@ -43,38 +47,48 @@ import { data, DataKeys } from "./fakedata";
   templateUrl: './modal-dialog.component.html',
   styleUrl: './modal-dialog.component.css'
 })
-export class ModalDialogComponent {
+export class ModalDialogComponent implements OnInit {
 
   @ViewChild('pdfviewer')
   public pdfviewerControl?: PdfViewerComponent;
   public document: string = 'assets/jfs.pdf';
   public resource: string = "https://cdn.syncfusion.com/ej2/23.1.43/dist/ej2-pdfviewer-lib";
-  
+
   data = data;
 
-  isAnyOneSelected: boolean = false;
   pdfData: any = {};
+
   public toolbarSettings = { showTooltip: true, toolbarItems: ['PageNavigationTool', "OpenOption", "MagnificationTool", "PanTool", "SelectionTool", "SearchOption", "PrintOption", "UndoRedoTool", "AnnotationEditTool", "CommentTool"] };
   constructor(
     public dialogRef: MatDialogRef<ModalDialogComponent>,
   ) {
 
   }
+  isFormCorrect: boolean = false;
+
   validateFormFields(): void {
-    let allFields = this.pdfviewerControl?.retrieveFormFields();
-    if(allFields){
-      allFields.forEach((field:any) => {
-        if(field.isRequired){
-          
+    const allFields = this.pdfviewerControl?.retrieveFormFields();
+    if (allFields) {
+      for (const field of allFields) {
+        if (field.isRequired) {
+          if ((field.type === "CheckBox" && !field.isChecked) ||
+            (field.type === 'DropDown' && !field.isSelected) ||
+            (field.type === "RadioButton" && !field.isSelected) ||
+            ((field.type === 'Textbox' || field.type === "Password") && field.value === "")) {
+            alert("Please fill out details properly")
+            this.isFormCorrect = false;
+          }
+
         }
-      })
+      }
     }
   }
+
+
   saveFieldsAndLock() {
     let allFields = this.pdfviewerControl?.retrieveFormFields();
     if (allFields) {
       allFields.forEach((field: any, i: number) => {
-
         if (field.name && this.pdfviewerControl) {
           const value = field.value;
           const fieldName = field.name as keyof typeof this.data;
@@ -86,43 +100,32 @@ export class ModalDialogComponent {
             );
           }
         }
-        if (field.type === "Checkbox" && field.isChecked) {
-          this.isAnyOneSelected = true;
-        }
       })
     }
-    console.log(this.isAnyOneSelected)
   }
+
   loaded() {
+    const pdfViewer = this.pdfviewerControl;
 
-
-    this.pdfviewerControl?.enableAutoComplete;
-
-    let allFields = this.pdfviewerControl?.retrieveFormFields()
-    if (allFields) {
+    const allFields = pdfViewer?.retrieveFormFields();
+    if (allFields && pdfViewer) {
       allFields.forEach((field: any, i: number) => {
-        if (field.name in this.data && this.pdfviewerControl) {
-          const fieldName = field.name as keyof typeof this.data;
+        const fieldName = field.name as keyof typeof this.data;;
+        if (fieldName in this.data) {
           const value = this.data[fieldName];
-
-          if (value !== undefined && value !== '') {
-            this.pdfviewerControl.formDesignerModule.updateFormField(
-              this.pdfviewerControl.formFieldCollections[i],
-              { value: value, isReadOnly: true } as TextFieldSettings
-            );
-          } else {
-            this.pdfviewerControl.formDesignerModule.updateFormField(
-              this.pdfviewerControl.formFieldCollections[i],
-              { isRequired: true } as TextFieldSettings
+          if (value) {
+            pdfViewer.formDesignerModule.updateFormField(
+              pdfViewer.formFieldCollections[i],
+              { value, isReadOnly: true } as TextFieldSettings
             );
           }
         }
-      })
+      });
       this.pdfData = allFields;
-      console.log(this.pdfData)
+      console.log(this.pdfData);
     }
-
   }
+
 
 
   ngOnInit() {

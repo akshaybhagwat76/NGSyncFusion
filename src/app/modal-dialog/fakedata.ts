@@ -35,6 +35,3 @@ export const data = {
     "Text2": "",
     "Date_Received_By_CDJFS": ""
 }
-export type DataKeys = {
-    [Key in keyof typeof data]: string;
-}
