@@ -86,7 +86,7 @@ export class ModalDialogComponent implements OnInit {
 
         }
       }
-      console.log(allFields)
+      
       alert("Submitted")
     }
   }
@@ -113,6 +113,7 @@ export class ModalDialogComponent implements OnInit {
           }
         }
       })
+      console.log(allFields)
     }
   }
 
