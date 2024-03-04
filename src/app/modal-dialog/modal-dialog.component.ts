@@ -106,11 +106,26 @@ export class ModalDialogComponent implements OnInit {
       this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 247, Width: 250, Height: 20 },} as TextFieldSettings);
       this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 281, Width: 250, Height: 20 },} as TextFieldSettings);
       this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 487, Y: 281, Width: 250, Height: 20 },} as TextFieldSettings);
-      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 315, Width: 250, Height: 20 },} as TextFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 314, Width: 250, Height: 20 },} as TextFieldSettings);
       this.pdfviewerControl?.formDesignerModule.addFormField("Textbox", {name: 'First Name', bounds: { X: 44, Y: 350, Width: 250, Height: 20 },} as TextFieldSettings);
       
-      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 290, Y: 740, Width: 20, Height: 20 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 51, Y: 410, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 427, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 444, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 51, Y: 470, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
       
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 487, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 504, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 521, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 538, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 51, Y: 569, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 586, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 603, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 80, Y: 620, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+      this.pdfviewerControl?.formDesignerModule.addFormField('CheckBox', {name: 'Information Billing',bounds: { X: 51, Y: 647, Width: 14, Height: 14 },isChecked: false,} as CheckBoxFieldSettings);
+
+      this.pdfviewerControl?.formDesignerModule.addFormField('SignatureField', {name: 'Sign',bounds: { X: 44, Y: 730, Width: 200, Height: 30 },} as SignatureFieldSettings);
+
       this.pdfviewerControl?.formDesignerModule.addFormField('SignatureField', {name: 'Sign',bounds: { X: 44, Y: 893, Width: 200, Height: 43 },} as SignatureFieldSettings);
       
     }
